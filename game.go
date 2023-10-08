@@ -4,28 +4,30 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"os/exec"
 	"time"
 )
 
 // Constants for item types
 const (
-	BareHands       = "Bare Hands"
-	Knife           = "Knife"
-	Sword           = "Sword"
-	Ninjaku         = "Ninjaku"
-	Wand            = "Wand"
-	Gophermourne    = "Gophermourne"
-	HealthPotion    = "Health Potion"
-	StrengthPotion  = "Strength Potion"
-	AgilityPotion   = "Agility Potion"
-	IntellectPotion = "Intellect Potion"
-	MaxHealth       = 30
-	WorkMinGold     = 5
-	WorkMaxGold     = 15
-	MaxStrength     = 10
-	MaxIntellect    = 10
-	MaxAgility      = 10
-	TrainCost       = 5
+	BareHands        = "Bare Hands"
+	Knife            = "Knife"
+	Sword            = "Sword"
+	Ninjaku          = "Ninjaku"
+	Wand             = "Wand"
+	Gophermourne     = "Gophermourne"
+	HealthPotion     = "Health Potion"
+	StrengthPotion   = "Strength Potion"
+	AgilityPotion    = "Agility Potion"
+	IntellectPotion  = "Intellect Potion"
+	MaxHealth        = 30
+	WorkMinGold      = 5
+	WorkMaxGold      = 15
+	MaxStrength      = 10
+	MaxIntellect     = 10
+	MaxAgility       = 10
+	TrainCost        = 5
+	InitialGoldCoins = 20
 )
 
 // Constants for consumable effects
@@ -289,24 +291,24 @@ func (g *Gopher) train(stat string) {
 
 	switch stat {
 	case "strength":
-		if g.strength+2 < MaxStrength {
-			g.strength += 2
+		if g.strength+StrengthPotionEffect < MaxStrength {
+			g.strength += StrengthPotionEffect
 			g.gold -= TrainCost
 			fmt.Println("You trained strength.")
 		} else {
 			fmt.Println("Strength is already at maximum.")
 		}
 	case "intel":
-		if g.intel+2 < MaxIntellect {
-			g.intel += 2
+		if g.intel+IntellectPotionEffect < MaxIntellect {
+			g.intel += IntellectPotionEffect
 			g.gold -= TrainCost
 			fmt.Println("You trained intellect.")
 		} else {
 			fmt.Println("Intellect is already at maximum.")
 		}
 	case "agility":
-		if g.agility+2 < MaxAgility {
-			g.agility += 2
+		if g.agility+AgilityPotionEffect < MaxAgility {
+			g.agility += AgilityPotionEffect
 			g.gold -= TrainCost
 			fmt.Println("You trained agility.")
 		} else {
@@ -470,7 +472,7 @@ func (g *Gopher) game(opponent *Gopher) {
 }
 
 func printDetails(g Gopher) {
-	fmt.Println("Name:", g.name)
+	fmt.Println("\nName:", g.name)
 	fmt.Println("Health:", g.healthpoints)
 	fmt.Println("Gold:", g.gold)
 	fmt.Println("Agility:", g.agility)
@@ -480,13 +482,21 @@ func printDetails(g Gopher) {
 	fmt.Println("Consumables:", g.inventory)
 }
 
+func clearConsole() {
+	time.Sleep(2 * time.Second)
+	cmd := exec.Command("cmd", "/c", "cls")
+	cmd.Stdout = os.Stdout
+	cmd.Run()
+}
+
 func main() {
 	fmt.Printf("Welcome to Archaemania\n\n\n")
 
-	g1 := Gopher{"Gopher1", MaxHealth, 20, 0, 0, 0, 0, Weapon{[]int{1}, BareHands, 0, 0, 0, 0}, []Consumables{}, []Consumables{}}
-	g2 := Gopher{"Gopher2", MaxHealth, 20, 0, 0, 0, 0, Weapon{[]int{1}, BareHands, 0, 0, 0, 0}, []Consumables{}, []Consumables{}}
+	g1 := Gopher{"Gopher1", MaxHealth, InitialGoldCoins, 0, 0, 0, 0, Weapon{[]int{1}, BareHands, 0, 0, 0, 0}, []Consumables{}, []Consumables{}}
+	g2 := Gopher{"Gopher2", MaxHealth, InitialGoldCoins, 0, 0, 0, 0, Weapon{[]int{1}, BareHands, 0, 0, 0, 0}, []Consumables{}, []Consumables{}}
 
 	for {
+		clearConsole()
 		fmt.Println("\nTurn:", g1.currTurn)
 		printDetails(g1)
 		g1.game(&g2)
