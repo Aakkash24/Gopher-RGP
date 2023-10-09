@@ -10,24 +10,25 @@ import (
 
 // Constants for item types
 const (
-	BareHands        = "Bare Hands"
-	Knife            = "Knife"
-	Sword            = "Sword"
-	Ninjaku          = "Ninjaku"
-	Wand             = "Wand"
-	Gophermourne     = "Gophermourne"
-	HealthPotion     = "Health Potion"
-	StrengthPotion   = "Strength Potion"
-	AgilityPotion    = "Agility Potion"
-	IntellectPotion  = "Intellect Potion"
-	MaxHealth        = 30
-	WorkMinGold      = 5
-	WorkMaxGold      = 15
-	MaxStrength      = 10
-	MaxIntellect     = 10
-	MaxAgility       = 10
-	TrainCost        = 5
-	InitialGoldCoins = 20
+	BareHands         = "Bare Hands"
+	Knife             = "Knife"
+	Sword             = "Sword"
+	Ninjaku           = "Ninjaku"
+	Wand              = "Wand"
+	Gophermourne      = "Gophermourne"
+	HealthPotion      = "Health Potion"
+	StrengthPotion    = "Strength Potion"
+	AgilityPotion     = "Agility Potion"
+	IntellectPotion   = "Intellect Potion"
+	MaxHealth         = 30
+	WorkMinGold       = 5
+	WorkMaxGold       = 15
+	MaxStrength       = 10
+	MaxIntellect      = 10
+	MaxAgility        = 10
+	TrainCost         = 5
+	InitialGoldCoins  = 20
+	InitialAttributes = 0
 )
 
 // Constants for consumable effects
@@ -492,8 +493,8 @@ func clearConsole() {
 func main() {
 	fmt.Printf("Welcome to Archaemania\n\n\n")
 
-	g1 := Gopher{"Gopher1", MaxHealth, InitialGoldCoins, 0, 0, 0, 0, Weapon{[]int{1}, BareHands, 0, 0, 0, 0}, []Consumables{}, []Consumables{}}
-	g2 := Gopher{"Gopher2", MaxHealth, InitialGoldCoins, 0, 0, 0, 0, Weapon{[]int{1}, BareHands, 0, 0, 0, 0}, []Consumables{}, []Consumables{}}
+	g1 := Gopher{"Gopher1", MaxHealth, InitialGoldCoins, InitialAttributes, InitialAttributes, InitialAttributes, InitialAttributes, Weapon{[]int{1}, BareHands, 0, 0, 0, 0}, []Consumables{}, []Consumables{}}
+	g2 := Gopher{"Gopher2", MaxHealth, InitialGoldCoins, InitialAttributes, InitialAttributes, InitialAttributes, InitialAttributes, Weapon{[]int{1}, BareHands, 0, 0, 0, 0}, []Consumables{}, []Consumables{}}
 
 	for {
 		clearConsole()
